@@ -1,18 +1,70 @@
 const express = require('express');
-const router = express.Router();
 const eventController = require('../controllers/eventController');
+const authController = require('../controllers/authController');
+const { ROLES } = require('../utils/constants');
 
-// Health check route
-router.get('/health', eventController.healthCheck);
+const router = express.Router();
 
-// Add other event routes here
-// router.get('/', eventController.getAll);
-// router.get('/upcoming', eventController.getUpcoming);
-// router.get('/college/:collegeId', eventController.getByCollege);
-// router.get('/:id', eventController.getById);
-// router.post('/', eventController.create);
-// router.put('/:id', eventController.update);
-// router.delete('/:id', eventController.delete);
-// router.post('/:id/register', eventController.registerParticipant);
+// Public routes
+router
+  .route('/')
+  .get(eventController.getAllEvents);
+
+router
+  .route('/:id')
+  .get(eventController.getEvent);
+
+// Protected routes - require authentication
+router.use(authController.protect);
+
+// Participant management
+router
+  .route('/:id/participants')
+  .post(
+    authController.restrictTo(ROLES.STUDENT, ROLES.TEACHER, ROLES.COLLEGE_ADMIN, ROLES.ADMIN),
+    eventController.addParticipant
+  );
+
+router
+  .route('/:id/participants/:participantId')
+  .delete(
+    authController.restrictTo(ROLES.STUDENT, ROLES.TEACHER, ROLES.COLLEGE_ADMIN, ROLES.ADMIN),
+    eventController.removeParticipant
+  );
+
+// Team management
+router
+  .route('/:id/teams')
+  .post(
+    authController.restrictTo(ROLES.STUDENT, ROLES.TEACHER, ROLES.COLLEGE_ADMIN, ROLES.ADMIN),
+    eventController.addTeam
+  );
+
+router
+  .route('/:id/teams/:teamId')
+  .delete(
+    authController.restrictTo(ROLES.STUDENT, ROLES.TEACHER, ROLES.COLLEGE_ADMIN, ROLES.ADMIN),
+    eventController.removeTeam
+  );
+
+// Admin and College Admin restricted routes
+router.use(authController.restrictTo(ROLES.COLLEGE_ADMIN, ROLES.ADMIN));
+
+router
+  .route('/')
+  .post(eventController.createEvent);
+
+router
+  .route('/:id')
+  .patch(eventController.updateEvent)
+  .delete(eventController.deleteEvent);
+
+// Event results (admin and judges)
+router
+  .route('/:id/results')
+  .patch(
+    authController.restrictTo(ROLES.ADMIN, ROLES.JUDGE, ROLES.COLLEGE_ADMIN),
+    eventController.updateEventResults
+  );
 
 module.exports = router;
