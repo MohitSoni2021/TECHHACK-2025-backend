@@ -5,14 +5,15 @@ const studentController = require('../controllers/studentController');
 // Health check route
 router.get('/health', studentController.healthCheck);
 
-// Add other student routes here
-// router.get('/', studentController.getAll);
-// router.get('/college/:collegeId', studentController.getByCollege);
-// router.get('/team/:teamId', studentController.getByTeam);
-// router.get('/event/:eventId', studentController.getByEvent);
-// router.get('/:id', studentController.getById);
-// router.post('/', studentController.create);
-// router.put('/:id', studentController.update);
-// router.delete('/:id', studentController.delete);
+// CRUD routes
+router.get('/', studentController.getAll);
+router.get('/college/:collegeId', studentController.getByCollege);
+router.get('/event/:eventId', studentController.getByEvent);
+router.get('/department/:department', studentController.getByDepartment);
+router.get('/roll/:rollNumber', studentController.getByRollNumber);
+router.get('/:id', studentController.getById);
+router.post('/', studentController.create);
+router.put('/:id', studentController.update);
+router.delete('/:id', studentController.delete);
 
 module.exports = router;
