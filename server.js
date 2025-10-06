@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const requestLogger = require('./middleware/requestLogger');
 
 // Initialize Express app
 const app = express();
@@ -14,6 +15,7 @@ connectDB();
 app.use(express.json()); // Parse JSON request bodies
 app.use(cors()); // Enable CORS for all routes
 app.use(morgan('dev')); // HTTP request logger
+app.use(requestLogger); // Custom request logger
 
 // Import routes
 const apiRoutes = require('./routes');
