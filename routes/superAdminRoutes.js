@@ -14,4 +14,15 @@ router.get('/health', superAdminController.healthCheck);
 // router.put('/:id', superAdminController.update);
 // router.delete('/:id', superAdminController.delete);
 
+router.post('/login', superAdminController.login);
+router.patch('/reset-password', superAdminController.resetPassword);
+router.get('/:id/activity-logs', superAdminController.getActivityLogs);
+
+// CRUD
+router.get('/', superAdminController.getAll);
+router.post('/', superAdminController.create);
+router.get('/:id', superAdminController.getById);
+router.put('/:id', superAdminController.update);
+router.delete('/:id', superAdminController.delete);
+
 module.exports = router;
