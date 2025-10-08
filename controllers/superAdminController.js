@@ -133,6 +133,39 @@ class SuperAdminController extends BaseController {
       });
     }
   };
+
+  // Update super admin; handle password correctly by using save()
+  // Mirrors logic from `studentController.update` to ensure hashing hooks run
+  update = async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      // If password is provided, fetch doc with password and use save() so pre('save') runs
+      if (req.body && Object.prototype.hasOwnProperty.call(req.body, 'password')) {
+        const doc = await this.model.findById(id).select('+password');
+        if (!doc) {
+          return res.status(404).json({ status: 'fail', message: `${this.model.modelName} not found` });
+        }
+        Object.keys(req.body).forEach((key) => {
+          doc[key] = req.body[key];
+        });
+        if (doc.isModified('password')) {
+          doc.passwordChangedAt = new Date();
+        }
+        const updated = await doc.save();
+        return res.status(200).json({ status: 'success', data: { doc: updated } });
+      }
+
+      // No password field; safe to use findByIdAndUpdate
+      const doc = await this.model.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+      if (!doc) {
+        return res.status(404).json({ status: 'fail', message: `${this.model.modelName} not found` });
+      }
+      res.status(200).json({ status: 'success', data: { doc } });
+    } catch (error) {
+      res.status(400).json({ status: 'fail', message: 'Update failed', error: error.message });
+    }
+  };
 }
 
 module.exports = new SuperAdminController();

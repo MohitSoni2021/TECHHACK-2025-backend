@@ -1,0 +1,14 @@
+2025-10-08T08:11:44.433Z | POST /api/super-admins/login | 401 | 1428ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:11:53.153Z | POST /api/super-admins | 400 | 881ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:13:57.696Z | GET /api/super-admins | 200 | 80ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:14:25.266Z | POST /api/super-admins/login | 401 | 788ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:14:33.739Z | POST /api/super-admins | 400 | 850ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:14:47.427Z | POST /api/super-admins | 201 | 796ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:15:29.956Z | POST /api/super-admins/login | 200 | 855ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:16:02.286Z | POST /api/super-admins/login | 401 | 883ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:20:00.639Z | POST /api/super-admins/login | 401 | 846ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T08:20:30.653Z | POST /api/super-admins/login | 200 | 808ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T09:19:17.564Z | POST /api/super-admins/login | 200 | 553ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T09:19:54.603Z | POST /api/super-admins/login | 200 | 578ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T09:20:36.024Z | POST /api/super-admins | 201 | 537ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
+2025-10-08T09:21:10.740Z | POST /api/super-admins/login | 200 | 1183ms | IP: ::1 | Agent: PostmanRuntime/7.48.0
